@@ -1,0 +1,29 @@
+# Python / Backend
+backend/.venv/
+backend/venv/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+backend/*.db
+backend/*.db-journal
+.env
+
+# Flutter / Android / Mobile
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/build/
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/**/GeneratedPluginRegistrant.java
+mobile/android/app/debug/
+mobile/android/app/profile/
+mobile/android/app/release/
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

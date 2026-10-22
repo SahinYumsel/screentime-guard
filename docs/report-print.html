@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>screentime-guard - Mobil Teknolojiler Proje ve Siber Güvenlik Raporu</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 11mm 14mm 11mm 14mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.44;
+      font-size: 10pt;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .header-banner {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);
+      color: #ffffff;
+      padding: 22px 26px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+    .header-banner .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      color: #e0e7ff;
+      font-size: 8.5pt;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      letter-spacing: 0.4px;
+    }
+    .header-banner h1 {
+      margin: 0 0 6px 0;
+      font-size: 19pt;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .header-banner p {
+      margin: 0;
+      font-size: 10pt;
+      color: #c7d2fe;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 8.8pt;
+    }
+    .meta-item span {
+      display: block;
+      color: #a5b4fc;
+      font-size: 7.8pt;
+      text-transform: uppercase;
+    }
+    .meta-item strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    h2 {
+      font-size: 13pt;
+      color: #1e1b4b;
+      border-bottom: 2px solid #e0e7ff;
+      padding-bottom: 4px;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 10.8pt;
+      color: #312e81;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      page-break-after: avoid;
+    }
+    p {
+      margin: 0 0 8px 0;
+      text-align: justify;
+    }
+    ul, ol {
+      margin: 0 0 10px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 9.2pt;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8.8pt;
+      line-height: 1.4;
+      overflow-x: auto;
+      page-break-inside: avoid;
+      margin: 8px 0 12px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 14px 0;
+      font-size: 9.2pt;
+      page-break-inside: auto;
+    }
+    thead {
+      display: table-header-group;
+    }
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+    th {
+      background: #eef2ff;
+      color: #1e1b4b;
+      font-weight: 700;
+      text-align: left;
+      padding: 5px 9px;
+      border: 1px solid #cbd5e1;
+    }
+    td {
+      padding: 4.5px 9px;
+      border: 1px solid #cbd5e1;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+    .callout {
+      border-left: 4px solid #4f46e5;
+      background: #f5f3ff;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin: 10px 0 14px 0;
+      page-break-inside: avoid;
+      font-size: 9.6pt;
+    }
+    .callout.warn {
+      border-left-color: #d97706;
+      background: #fffbeb;
+    }
+    .callout.success {
+      border-left-color: #059669;
+      background: #ecfdf5;
+    }
+    .diagram-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      background: #f8fafc;
+      padding: 12px;
+      margin: 12px 0 16px 0;
+      page-break-inside: avoid;
+      text-align: center;
+    }
+    .diagram-caption {
+      font-size: 8.8pt;
+      color: #475569;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .badge-pass {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 8.2pt;
+    }
+    .badge-med {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 8.2pt;
+    }
+    .badge-low {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #075985;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 8.2pt;
+    }
+    .formula-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 8px 0 12px 0;
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 10.5pt;
+      page-break-inside: avoid;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- KAPAK / ÜST BAŞLIK -->
+  <div class="header-banner">
+    <div class="badge">MOBİL TEKNOLOJİLER DERSİ PROJE &amp; GÜVENLİK RAPORU</div>
+    <h1>screentime-guard: Offline-First Ekran Süresi Takip ve Uyarı Sistemi</h1>
+    <p>Flutter + Kotlin Native Android İstemcisi, FastAPI Mikroservisi, Gerçek Cihaz Doğrulaması ve Siber Güvenlik Analizi</p>
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span>Mobil Teknoloji</span>
+        <strong>Flutter 3.47 + Kotlin</strong>
+      </div>
+      <div class="meta-item">
+        <span>Mikroservis</span>
+        <strong>Python 3.13 + FastAPI</strong>
+      </div>
+      <div class="meta-item">
+        <span>Gerçek Test Cihazı</span>
+        <strong>Xiaomi 14T (HyperOS)</strong>
+      </div>
+      <div class="meta-item">
+        <span>Otomatik Testler</span>
+        <strong>18 / 18 Başarılı (%100)</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. GİRİŞ -->
+  <h2>1. Giriş ve Problemin Tanımı</h2>
+  <p>
+    Akıllı telefonların günlük yaşamda yoğun kullanımı, kullanıcıların farkında olmadan ekran başında saatler geçirmesine ve özellikle gece geç saatlerde (örneğin <code>23:00 – 06:00</code> aralığında) uyku düzeninin bozulmasına yol açmaktadır. Mevcut ticari çözümlerin birçoğu ya tamamen bulut bağımlı çalışmakta (internet kesildiğinde kuralları uygulayamamakta) ya da aşırı sistem kaynağı tüketmektedir.
+  </p>
+  <p><strong><code>screentime-guard</code></strong> projesinin temel hedefleri şunlardır:</p>
+  <ol>
+    <li><strong>Gerçek Ekran Süresi Ölçümü:</strong> Android işletim sisteminin <code>UsageStatsManager</code> servisi üzerinden günlük toplam ekran süresini ve en çok kullanılan ilk 5 uygulamayı (<code>top_apps</code>) paket bazında ölçmek.</li>
+    <li><strong>Proaktif Uyarı Mekanizması:</strong> Günlük limitin %80'ine ulaşıldığında (<code>warn_80</code>), limit aşıldığında (<code>limit_exceeded</code>) veya gece kesme saati aralığında (<code>in_cutoff_window</code>) kullanıcıyı <strong>Sistem Bildirimi (<code>notify</code>)</strong> ya da <strong>Ekran Üstü Uyarı Penceresi (<code>overlay</code>)</strong> ile uyarmak.</li>
+    <li><strong>Offline-First Mimari ve İdempotent Senkronizasyon:</strong> İnternet olmasa bile kural değerlendirmesini telefonda kesintisiz yürütmek; kullanım istatistiklerini yerel kuyrukta bekletip bağlantı geldiğinde FastAPI mikroservisine idempotent olarak aktarmak.</li>
+  </ol>
+
+  <!-- 2. TEKNOLOJİ SEÇİMLERİ -->
+  <h2>2. Teknoloji Seçimleri ve Mimari Gerekçeler</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 24%;">Katman</th>
+        <th style="width: 24%;">Seçilen Teknoloji</th>
+        <th>Seçim Gerekçesi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Mobil Arayüz &amp; İş Mantığı</strong></td>
+        <td>Flutter (Dart 3.13)</td>
+        <td>Tek kod tabanıyla modern Material 3 arayüzü geliştirme ve iş mantığının (<code>RuleEvaluator</code>) emülatörsüz birim testleriyle saniyeler içinde doğrulanabilmesi.</td>
+      </tr>
+      <tr>
+        <td><strong>Android Native Katmanı</strong></td>
+        <td>Kotlin (<code>MethodChannel</code>)</td>
+        <td>Flutter'ın doğrudan erişemediği Android sistem API'lerine (<code>UsageStatsManager</code>, <code>ForegroundService</code>, <code>WindowManager</code> Overlay) minimum kodla erişim.</td>
+      </tr>
+      <tr>
+        <td><strong>Durum Yönetimi (State)</strong></td>
+        <td>Riverpod (<code>StateNotifier</code>)</td>
+        <td>Temiz bağımlılık enjeksiyonu (Dependency Injection), test edilebilirlik ve 4 ana ekran arasında reaktif durum akışı.</td>
+      </tr>
+      <tr>
+        <td><strong>HTTP İstemcisi</strong></td>
+        <td>Dio</td>
+        <td><code>InterceptorsWrapper</code> ile her HTTP isteğine otomatik <code>X-Device-Token</code> başlığı ekleme ve dinamik sunucu adresi yönetimi.</td>
+      </tr>
+      <tr>
+        <td><strong>Backend Mikroservisi</strong></td>
+        <td>Python 3.13 + FastAPI</td>
+        <td>Yüksek performans, Pydantic v2 ile otomatik JSON şema doğrulaması ve etkileşimli OpenAPI (<code>/docs</code>) arayüzü.</td>
+      </tr>
+      <tr>
+        <td><strong>Veritabanı &amp; ORM</strong></td>
+        <td>SQLite + SQLAlchemy 2.0</td>
+        <td>Kurulum gerektirmeyen gömülü yapı, parametreli sorgularla SQL enjeksiyon koruması ve <code>(device_id, date)</code> benzersizlik kısıtı.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Neden iOS Yerine Android Seçildi?</strong><br/>
+    iOS işletim sistemi, katı kum havuzu (sandbox) kısıtlamaları nedeniyle bir uygulamanın diğer uygulamaların kullanım sürelerini okumasını ve ekran üstü pencere açmasını engeller (Apple <em>Screen Time / FamilyControls API</em> özel kurumsal onay gerektirir). Android ise kullanıcının açık onayıyla (<code>PACKAGE_USAGE_STATS</code> ve <code>SYSTEM_ALERT_WINDOW</code>) bu sistem servislerine erişime olanak tanır.
+  </div>
+
+  <!-- 3. SİSTEM MİMARİSİ VE ŞEMALAR -->
+  <h2>3. Sistem Mimarisi ve Veri Akışı Şemaları</h2>
+
+  <!-- ŞEKİL 1: GENEL MİMARİ SVG DİYAGRAMI -->
+  <div class="diagram-box">
+    <svg viewBox="0 0 820 370" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#4338ca"/>
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669"/>
+        </marker>
+      </defs>
+
+      <!-- Sol Kutu: Android Telefon -->
+      <rect x="14" y="14" width="460" height="342" rx="12" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="30" y="38" font-family="Segoe UI, Arial" font-size="13" font-weight="bold" fill="#1e1b4b">ANDROID TELEFON (Xiaomi 14T - Flutter + Kotlin)</text>
+
+      <!-- Presentation Katmanı -->
+      <rect x="30" y="52" width="428" height="52" rx="8" fill="#ffffff" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="44" y="73" font-family="Segoe UI, Arial" font-size="11.5" font-weight="bold" fill="#312e81">Presentation Katmanı (Riverpod StateNotifier)</text>
+      <text x="44" y="92" font-family="Segoe UI, Arial" font-size="10" fill="#475569">DashboardScreen • RulesScreen • HistoryScreen • PermissionsScreen</text>
+
+      <!-- Domain Katmanı -->
+      <rect x="30" y="120" width="205" height="68" rx="8" fill="#ffffff" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="42" y="141" font-family="Segoe UI, Arial" font-size="11" font-weight="bold" fill="#312e81">Domain Katmanı (Dart)</text>
+      <text x="42" y="158" font-family="Segoe UI, Arial" font-size="9.5" fill="#475569">• Rule &amp; UsageRecord</text>
+      <text x="42" y="174" font-family="Segoe UI, Arial" font-size="9.5" fill="#047857" font-weight="bold">• RuleEvaluator (Offline-First)</text>
+
+      <!-- Data Katmanı -->
+      <rect x="253" y="120" width="205" height="68" rx="8" fill="#ffffff" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="265" y="141" font-family="Segoe UI, Arial" font-size="11" font-weight="bold" fill="#312e81">Data Katmanı (Dart)</text>
+      <text x="265" y="158" font-family="Segoe UI, Arial" font-size="9.5" fill="#475569">• ApiClient (Dio Interceptor)</text>
+      <text x="265" y="174" font-family="Segoe UI, Arial" font-size="9.5" fill="#475569">• LocalStore &amp; Offline Kuyruk</text>
+
+      <!-- MethodChannel Köprüsü -->
+      <rect x="70" y="206" width="348" height="32" rx="6" fill="#312e81"/>
+      <text x="244" y="226" text-anchor="middle" font-family="Consolas, monospace" font-size="10.5" font-weight="bold" fill="#ffffff">MethodChannel ("com.screentimeguard/native")</text>
+
+      <!-- Kotlin Native Katmanı -->
+      <rect x="30" y="256" width="134" height="82" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+      <text x="97" y="277" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10.5" font-weight="bold" fill="#065f46">UsageReader.kt</text>
+      <text x="97" y="295" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">UsageStatsManager</text>
+      <text x="97" y="310" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">Bugünkü Süre &amp;</text>
+      <text x="97" y="324" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">Top 5 Uygulama</text>
+
+      <rect x="177" y="256" width="134" height="82" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+      <text x="244" y="277" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10.5" font-weight="bold" fill="#065f46">MonitorService.kt</text>
+      <text x="244" y="295" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">Foreground Service</text>
+      <text x="244" y="310" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">60 sn Periyodik</text>
+      <text x="244" y="324" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">Kontrol Döngüsü</text>
+
+      <rect x="324" y="256" width="134" height="82" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+      <text x="391" y="277" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10.5" font-weight="bold" fill="#065f46">OverlayManager.kt</text>
+      <text x="391" y="295" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">WindowManager</text>
+      <text x="391" y="310" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">Ekran Üstü Uyarı</text>
+      <text x="391" y="324" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#047857">&amp; Sistem Bildirimi</text>
+
+      <!-- Sağ Kutu: FastAPI Mikroservisi -->
+      <rect x="546" y="14" width="260" height="342" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+      <text x="564" y="38" font-family="Segoe UI, Arial" font-size="13" font-weight="bold" fill="#14532d">FASTAPI MİKROSERVİSİ</text>
+
+      <rect x="564" y="54" width="224" height="64" rx="8" fill="#ffffff" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="576" y="74" font-family="Segoe UI, Arial" font-size="11" font-weight="bold" fill="#14532d">API Routers (/v1/*)</text>
+      <text x="576" y="91" font-family="Consolas, monospace" font-size="9" fill="#334155">POST /v1/devices  GET /v1/health</text>
+      <text x="576" y="106" font-family="Consolas, monospace" font-size="9" fill="#334155">GET|PUT /v1/rules POST|GET /v1/usage</text>
+
+      <rect x="564" y="134" width="224" height="54" rx="8" fill="#ffffff" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="576" y="154" font-family="Segoe UI, Arial" font-size="11" font-weight="bold" fill="#14532d">Güvenlik &amp; Kimlik (deps.py)</text>
+      <text x="576" y="172" font-family="Segoe UI, Arial" font-size="9.5" fill="#334155">X-Device-Token SHA-256 Doğrulama</text>
+
+      <rect x="564" y="204" width="224" height="54" rx="8" fill="#ffffff" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="576" y="224" font-family="Segoe UI, Arial" font-size="11" font-weight="bold" fill="#14532d">Servis Katmanı (usage_service.py)</text>
+      <text x="576" y="242" font-family="Segoe UI, Arial" font-size="9.5" fill="#334155">İdempotent Upsert &amp; 7 Gün Ortalama</text>
+
+      <rect x="564" y="274" width="224" height="64" rx="8" fill="#14532d"/>
+      <text x="676" y="296" text-anchor="middle" font-family="Segoe UI, Arial" font-size="11" font-weight="bold" fill="#ffffff">SQLite Veritabanı (ORM)</text>
+      <text x="676" y="314" text-anchor="middle" font-family="Consolas, monospace" font-size="9.2" fill="#bbf7d0">devices • rules • daily_usage</text>
+      <text x="676" y="328" text-anchor="middle" font-family="Consolas, monospace" font-size="8.5" fill="#86efac">UNIQUE(device_id, date)</text>
+
+      <!-- Oklar -->
+      <line x1="132" y1="104" x2="132" y2="120" stroke="#4338ca" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <line x1="355" y1="104" x2="355" y2="120" stroke="#4338ca" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <line x1="235" y1="154" x2="253" y2="154" stroke="#4338ca" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <line x1="244" y1="188" x2="244" y2="206" stroke="#4338ca" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <line x1="97" y1="238" x2="97" y2="256" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+      <line x1="244" y1="256" x2="244" y2="238" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+      <line x1="391" y1="238" x2="391" y2="256" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+
+      <!-- Mobil <-> Mikroservis HTTP Oku -->
+      <line x1="458" y1="154" x2="562" y2="90" stroke="#4338ca" stroke-width="2.2" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+      <rect x="466" y="102" width="88" height="34" rx="5" fill="#ffffff" stroke="#6366f1"/>
+      <text x="510" y="116" text-anchor="middle" font-family="Consolas, monospace" font-size="8.5" font-weight="bold" fill="#1e1b4b">HTTP / JSON</text>
+      <text x="510" y="129" text-anchor="middle" font-family="Consolas, monospace" font-size="8" fill="#4338ca">X-Device-Token</text>
+
+      <!-- Backend İçi Oklar -->
+      <line x1="676" y1="118" x2="676" y2="134" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+      <line x1="676" y1="188" x2="676" y2="204" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+      <line x1="676" y1="258" x2="676" y2="274" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+    </svg>
+    <div class="diagram-caption">Şekil 1: screentime-guard Genel Sistem ve Katman Mimarisi Diyagramı</div>
+  </div>
+
+  <!-- ŞEKİL 2: ÇALIŞMA ZAMANI SEQUENCE SVG DİYAGRAMI -->
+  <div class="diagram-box">
+    <svg viewBox="0 0 820 275" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="seq-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b"/>
+        </marker>
+      </defs>
+
+      <!-- Katılımcı Kutuları -->
+      <rect x="20" y="12" width="130" height="32" rx="6" fill="#312e81"/>
+      <text x="85" y="32" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" font-weight="bold" fill="#fff">MonitorService (KT)</text>
+
+      <rect x="185" y="12" width="130" height="32" rx="6" fill="#065f46"/>
+      <text x="250" y="32" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" font-weight="bold" fill="#fff">UsageReader (KT)</text>
+
+      <rect x="350" y="12" width="140" height="32" rx="6" fill="#4338ca"/>
+      <text x="420" y="32" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" font-weight="bold" fill="#fff">RuleEvaluator (Dart)</text>
+
+      <rect x="525" y="12" width="130" height="32" rx="6" fill="#9a3412"/>
+      <text x="590" y="32" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" font-weight="bold" fill="#fff">OverlayManager (KT)</text>
+
+      <rect x="685" y="12" width="115" height="32" rx="6" fill="#14532d"/>
+      <text x="742" y="32" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" font-weight="bold" fill="#fff">FastAPI / SQLite</text>
+
+      <!-- Yaşam Çizgileri -->
+      <line x1="85" y1="44" x2="85" y2="260" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+      <line x1="250" y1="44" x2="250" y2="260" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+      <line x1="420" y1="44" x2="420" y2="260" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+      <line x1="590" y1="44" x2="590" y2="260" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+      <line x1="742" y1="44" x2="742" y2="260" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+      <!-- 1. Adım -->
+      <line x1="85" y1="70" x2="246" y2="70" stroke="#1e293b" stroke-width="1.6" marker-end="url(#seq-arrow)"/>
+      <text x="165" y="64" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" font-weight="bold" fill="#1e293b">1. Her 60 sn: readTodayUsage()</text>
+
+      <!-- 2. Adım -->
+      <line x1="250" y1="98" x2="89" y2="98" stroke="#047857" stroke-width="1.6" stroke-dasharray="4,2" marker-end="url(#seq-arrow)"/>
+      <text x="165" y="92" text-anchor="middle" font-family="Consolas, monospace" font-size="8.5" fill="#065f46">2. {total_minutes, top_apps}</text>
+
+      <!-- 3. Adım -->
+      <line x1="85" y1="128" x2="416" y2="128" stroke="#1e293b" stroke-width="1.6" marker-end="url(#seq-arrow)"/>
+      <text x="250" y="122" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" font-weight="bold" fill="#312e81">3. MethodChannel ("onUsageTick")</text>
+
+      <!-- 4. Adım -->
+      <rect x="360" y="138" width="120" height="24" rx="4" fill="#eef2ff" stroke="#6366f1"/>
+      <text x="420" y="154" text-anchor="middle" font-family="Segoe UI, Arial" font-size="8.8" font-weight="bold" fill="#1e1b4b">4. evaluate(rule, now)</text>
+
+      <!-- 5. Adım -->
+      <line x1="420" y1="180" x2="586" y2="180" stroke="#c2410c" stroke-width="1.6" marker-end="url(#seq-arrow)"/>
+      <text x="505" y="174" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" font-weight="bold" fill="#9a3412">5. İhlal Varsa: triggerAlert(mode)</text>
+
+      <!-- 6. Adım -->
+      <line x1="420" y1="215" x2="738" y2="215" stroke="#15803d" stroke-width="1.6" marker-end="url(#seq-arrow)"/>
+      <text x="580" y="209" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" font-weight="bold" fill="#14532d">6. POST /v1/usage (Idempotent Upsert)</text>
+
+      <!-- 7. Adım -->
+      <line x1="742" y1="243" x2="424" y2="243" stroke="#15803d" stroke-width="1.6" stroke-dasharray="4,2" marker-end="url(#seq-arrow)"/>
+      <text x="580" y="237" text-anchor="middle" font-family="Segoe UI, Arial" font-size="8.5" fill="#14532d">7. 200 OK (veya Çevrimdışıysa Yerel Kuyruk)</text>
+    </svg>
+    <div class="diagram-caption">Şekil 2: 60 Saniyelik Periyodik İzleme, Kural Değerlendirme ve Senkronizasyon Sıralama Diyagramı</div>
+  </div>
+
+  <h3>3.1. Gece Yarısını Aşan Kesme Saati (Cutoff Window) Algoritması</h3>
+  <p>
+    Kullanıcının belirlediği kesme saati <code>23:00 – 06:00</code> gibi gece yarısını aşabilir. <code>RuleEvaluator.isInCutoffWindow</code> fonksiyonu saatleri gece yarısından itibaren geçen dakikaya (<em>M = saat × 60 + dakika</em>, <code>0..1439</code>) dönüştürerek aşağıdaki karar kuralını uygular:
+  </p>
+  <div class="formula-box">
+    • <strong>Aynı Gün İçi Aralık (M<sub>start</sub> &lt; M<sub>end</sub>, örn. 01:00 – 05:00):</strong> &nbsp; M<sub>start</sub> ≤ M<sub>now</sub> &lt; M<sub>end</sub><br/>
+    • <strong>Gece Yarısını Aşan Aralık (M<sub>start</sub> &gt; M<sub>end</sub>, örn. 23:00 – 06:00):</strong> &nbsp; M<sub>now</sub> ≥ M<sub>start</sub> &nbsp;<strong>VEYA</strong>&nbsp; M<sub>now</sub> &lt; M<sub>end</sub>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 4. GERÇEK CİHAZ TEST SONUÇLARI -->
+  <h2>4. Gerçek Cihaz (Xiaomi 14T) Canlı Doğrulama Sonuçları</h2>
+  <p>
+    Uygulama emülatör yerine doğrudan fiziksel <strong>Xiaomi 14T (model: <code>2406APNFAG</code>)</strong> cihazına kurulmuş ve gerçek kullanım verileriyle test edilmiştir:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 28%;">Test Adımı</th>
+        <th style="width: 36%;">Gerçek Cihazda Gözlemlenen Davranış</th>
+        <th>SQLite Veritabanı (<code>screentime_guard.db</code>) Kaydı</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Cihaz Kaydı (<code>POST /v1/devices</code>)</strong></td>
+        <td>İlk açılışta otomatik kayıt yapıldı ve üretilen <code>X-Device-Token</code> yerel hafızaya kaydedildi.</td>
+        <td><code>id: abf3b855-409e-4b77-b323-e0d10467a4a9</code><br/><code>name: Android Cihazım</code></td>
+      </tr>
+      <tr>
+        <td><strong>2. Kural Güncelleme (<code>PUT /v1/rules</code>)</strong></td>
+        <td>Kurallar ekranından günlük limit <strong>255 dk</strong> ve uyarı modu <strong>overlay</strong> seçilip kaydedildi.</td>
+        <td><code>daily_limit_min: 255</code>, <code>cutoff: 23:00-06:00</code>, <code>mode: overlay</code></td>
+      </tr>
+      <tr>
+        <td><strong>3. Süre Okuma (<code>UsageReader.kt</code>)</strong></td>
+        <td><code>UsageStatsManager</code> ile Xiaomi 14T'nin bugünkü gerçek kullanımı (<strong>246 dk</strong>) okundu.</td>
+        <td><code>date: 2026-10-22</code>, <code>total_minutes: 246</code></td>
+      </tr>
+      <tr>
+        <td><strong>4. En Çok Kullanılanlar (<code>top_apps</code>)</strong></td>
+        <td>Chrome (58 dk), Google (39 dk), WhatsApp (34 dk), Reddit (29 dk), MIUI Home (28 dk).</td>
+        <td>JSON dizisi olarak <code>daily_usage.top_apps</code> sütununa yazıldı.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Kural &amp; Overlay Uyarısı</strong></td>
+        <td><code>246 dk ≥ 204 dk</code> (%80 eşiği) olduğundan <code>warn_80</code> durumu ve limit düşürüldüğünde ekran üstü <strong>Overlay</strong> penceresi tetiklendi.</td>
+        <td>15 dakikalık <em>cooldown</em> mekanizması ile tekrarlı uyarı spam'i önlendi.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 5. SİBER GÜVENLİK ANALİZİ VE TEST SONUÇLARI -->
+  <h2>5. Siber Güvenlik Analizi ve Otomatik Test Sonuçları</h2>
+  <p>
+    Uygulama ve mikroservis <strong>OWASP API Security Top 10 (2023)</strong> ve <strong>OWASP Mobile Top 10</strong> standartlarına göre denetlenmiş; hem fonksiyonel hem de siber güvenlik doğrulama testleri (<code>pytest</code> ve <code>flutter test</code>) %100 başarıyla geçmiştir.
+  </p>
+
+  <h3>5.1. Otomatik Güvenlik ve Birim Testleri Sonuç Tablosu (18 / 18 Başarılı)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 34%;">Test Adı / Senaryo</th>
+        <th style="width: 24%;">OWASP Kategorisi</th>
+        <th>Doğrulanan Güvenlik / İş Mantığı Mekanizması</th>
+        <th style="width: 12%;">Sonuç</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>test_token_entropy_and_sha256_storage</code></td>
+        <td>API2: Broken Authentication</td>
+        <td><code>secrets.token_urlsafe(32)</code> ile 256-bit entropili token üretimi ve veritabanında açık token yerine yalnızca 64 karakterlik <strong>SHA-256 hash</strong> saklanması.</td>
+        <td><span class="badge-pass">PASSED</span></td>
+      </tr>
+      <tr>
+        <td><code>test_device_data_isolation</code></td>
+        <td>API1: BOLA / IDOR</td>
+        <td>Cihazlar arası tam veri izolasyonu: A cihazının B cihazına ait kuralları veya kullanım geçmişini okuyamaması ve değiştirememesi.</td>
+        <td><span class="badge-pass">PASSED</span></td>
+      </tr>
+      <tr>
+        <td><code>test_input_boundary_and_payload_limits</code></td>
+        <td>API4: Resource Consumption</td>
+        <td>1440 dakikadan büyük sürelerin, negatif değerlerin, 100 karakterden uzun cihaz adlarının ve 20'den fazla <code>top_apps</code> elemanının <code>422</code> ile reddedilmesi.</td>
+        <td><span class="badge-pass">PASSED</span></td>
+      </tr>
+      <tr>
+        <td><code>test_special_characters_handled_safely_by_orm</code></td>
+        <td>API8: Injection (SQLi)</td>
+        <td><code>X-Device-Token</code> başlığında özel SQL karakterlerinin SQLAlchemy 2.0 parametreli sorguları tarafından güvenle işlenmesi.</td>
+        <td><span class="badge-pass">PASSED</span></td>
+      </tr>
+      <tr>
+        <td><code>test_error_responses_do_not_leak_internals</code></td>
+        <td>API8: Misconfiguration</td>
+        <td>401, 404 ve 422 yanıtlarında Python <em>Traceback</em> veya iç dosya yollarının sızdırılmaması; standart <code>{"error": {"code", "message"}}</code> zarfı.</td>
+        <td><span class="badge-pass">PASSED</span></td>
+      </tr>
+      <tr>
+        <td><code>test_api.py</code> (7 Fonksiyonel Test)</td>
+        <td>API Sözleşme Doğrulaması</td>
+        <td><code>/v1/health</code>, cihaz kaydı, kural okuma/güncelleme, aynı gün için idempotent <code>POST /v1/usage</code> ve 7 günlük ortalama hesabı.</td>
+        <td><span class="badge-pass">7/7 PASSED</span></td>
+      </tr>
+      <tr>
+        <td><code>rule_evaluator_test.dart</code> &amp; <code>offline_sync_queue_test.dart</code></td>
+        <td>Mobil İş Mantığı &amp; Offline Kuyruk</td>
+        <td>Gece yarısını aşan kesme saati (<code>23:30</code> ve <code>02:15</code>), %80 uyarısı, limit aşımı ve çevrimdışı kuyruk idempotency doğrulaması.</td>
+        <td><span class="badge-pass">6/6 PASSED</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>5.2. Kod Üzerinde Uygulanan Güvenlik Sertleştirmeleri (Hardening)</h3>
+  <ul>
+    <li><strong>Veri Minimizasyonu (Privacy by Design):</strong> Sistem kullanıcıdan ad, e-posta, şifre veya ekran içeriği toplamaz; yalnızca anonim cihaz UUID'si, toplam dakika ve uygulama paket adları işlenir.</li>
+    <li><strong>Android Bileşen ve Yedekleme Koruması (<code>AndroidManifest.xml</code>):</strong> <code>MonitorService</code> için <code>android:exported="false"</code> tanımlanarak dış uygulamaların servise müdahalesi engellenmiş; <code>android:allowBackup="false"</code> ile <code>adb backup</code> üzerinden yerel token sızıntısı kapatılmıştır.</li>
+    <li><strong>Bellek/Veritabanı Şişirme (DoS) Koruması (<code>schemas.py</code>):</strong> <code>UsageUpsertRequest.top_apps</code> alanına <code>max_length=20</code> sınırı getirilmiştir.</li>
+  </ul>
+
+  <h3>5.3. Üretim Ortamı (Production) İçin Güvenlik Yol Haritası</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 26%;">Bulgu Başlığı</th>
+        <th style="width: 16%;">Risk Seviyesi</th>
+        <th>Mevcut Durum ve Üretim Ortamı (Production) Çözüm Önerisi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>HTTP / Cleartext İletişim</strong></td>
+        <td><span class="badge-med">Orta (Mobile M5)</span></td>
+        <td>Yerel ağda test için açık olan <code>usesCleartextTraffic="true"</code> ayarı üretimde kapatılmalı ve tüm API trafiği <strong>HTTPS/TLS</strong> üzerinden şifrelenmelidir.</td>
+      </tr>
+      <tr>
+        <td><strong>Cihaz Kayıt Rate Limiting</strong></td>
+        <td><span class="badge-med">Orta (API4)</span></td>
+        <td>Kimlik doğrulama gerektirmeyen <code>POST /v1/devices</code> uç noktasına sahte cihaz kaydı saldırılarını (flood) önlemek için IP bazlı hız sınırı (<code>5 istek/dk</code>) eklenmelidir.</td>
+      </tr>
+      <tr>
+        <td><strong>Yerel Token Saklama</strong></td>
+        <td><span class="badge-low">Düşük/Orta (M9)</span></td>
+        <td>Root yetkili cihazlara karşı <code>device_token</code> değerinin <code>SharedPreferences</code> yerine donanım destekli <strong>Android Keystore</strong> (<code>flutter_secure_storage</code>) içinde tutulması önerilir.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 6. KARŞILAŞILAN ZORLUKLAR VE GELECEK ÇALIŞMALAR -->
+  <h2>6. Karşılaşılan Zorluklar ve Gelecek Çalışmalar</h2>
+  <ul>
+    <li><strong>Android Özel İzin Akışı:</strong> <code>PACKAGE_USAGE_STATS</code> ve <code>SYSTEM_ALERT_WINDOW</code> izinleri standart çalışma zamanı izin penceresiyle alınamadığı için <code>AppOpsManager</code> ile anlık durum kontrolü yapan ve kullanıcıyı doğrudan ilgili sistem ayar sayfasına yönlendiren özel bir <strong>İzinler Ekranı</strong> geliştirilmiştir.</li>
+    <li><strong>Android Pil Optimizasyonu:</strong> Arka plan zamanlayıcılarının işletim sistemi tarafından durdurulmasını önlemek için <code>START_STICKY</code> bayraklı ve kalıcı bildirimli <strong>Foreground Service (<code>MonitorService</code>)</strong> kullanılmıştır.</li>
+    <li><strong>Gelecek Çalışmalar:</strong> <code>AccessibilityService</code> kullanılarak uygulama bazında özel limit/engelleme getirilmesi ve çoklu cihaz yönetimi için <strong>Ebeveyn / Aile Paneli</strong> eklenmesi planlanmaktadır.</li>
+  </ul>
+
+</body>
+</html>
